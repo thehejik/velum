@@ -2,7 +2,7 @@
 source "https://rubygems.org"
 
 gem "puma"
-gem "rails", "4.2.7.1"
+gem "rails", "4.2.8"
 
 gem "jbuilder", "~> 2.5"
 gem "jquery-rails"
@@ -19,27 +19,13 @@ gem "mysql2"
 
 gem "gravatar_image_tag"
 gem "devise"
-gem "kubeclient", "~> 2.3.0"
+gem "kubeclient", "~> 2.4.0"
 gem "devise_ldap_authenticatable"
 gem "net-ldap", require: "net/ldap"
 
-# Assets group.
-#
-# Do not set it or set it to no when precompiling the assets.
-#
-# IGNORE_ASSETS="no" RAILS_ENV=production bundle exec rake assets:precompile
-#
-# Set IGNORE_ASSETS to YES when creating the Gemfile.lock for
-# production after having precompiled the assets
-# run:
-#
-# IGNORE_ASSETS=yes bundle list
-
-unless ENV["IGNORE_ASSETS"] == "yes"
-  gem "sass-rails", "~> 5.0"
-  gem "bootstrap-sass"
-  gem "uglifier", ">= 1.3.0"
-end
+gem "sass-rails", "~> 5.0"
+gem "bootstrap-sass"
+gem "uglifier", ">= 1.3.0"
 
 # In order to create the Gemfile.lock required for packaging
 # meaning that it should contain only the production packages

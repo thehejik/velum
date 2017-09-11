@@ -74,10 +74,6 @@ cp %{_libdir}/ruby/gems/%{rb_ver}/cache/*.gem vendor/cache
 export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 export PACKAGING=yes
 VELUM_SECRETS_DIR=%{buildroot}/%{velumdir}/tmp RAILS_ENV=production bundle exec rake assets:precompile
-export IGNORE_ASSETS=yes
-
-# run bundle list to redo the Gemfile.lock
-bundle list
 
 # deploy gems
 bundle install --retry=3 --local --deployment
@@ -90,7 +86,7 @@ rm -rf vendor/cache
 %install
 install -d %{buildroot}/%{velumdir}
 
-cp -av . %{buildroot}/%{velumdir}
+cp -a . %{buildroot}/%{velumdir}
 
 rm -rf %{buildroot}/%{velumdir}/log
 mkdir %{buildroot}/%{velumdir}/log
@@ -102,14 +98,6 @@ mkdir %{buildroot}/%{velumdir}/tmp
 rm -rf %{buildroot}/%{velumdir}/Gemfile.lock.orig
 
 %fdupes %{buildroot}/%{velumdir}
-
-%pre
-
-%post
-
-%preun
-
-%postun
 
 %files
 %defattr(-,root,root)
