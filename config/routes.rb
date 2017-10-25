@@ -39,5 +39,10 @@ Rails.application.routes.draw do
     get :bootstrap
     post :bootstrap, action: :do_bootstrap
   end
+
+  namespace :settings do
+    get "/", action: :edit
+    put "/", action: :update
+  end
 end
 # rubocop:enable Metrics/BlockLength
