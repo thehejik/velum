@@ -35,6 +35,7 @@ module Velum
       [needed["return"], failed["return"]]
     end
 
+    puts "this a change"
     # Returns the minions as discovered by salt.
     def self.minions
       res = perform_request(endpoint: "/minions", method: "get")
