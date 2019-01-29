@@ -132,9 +132,9 @@ describe "Dashboard" do
       within ".minion_#{minions[3].minion_id}" do
         click_on "Reject"
       end
-
-      expect(page).to have_content("Rejection in progress")
-
+      page.accept_alert do do
+        expect(page).to have_content("Rejection in progress")
+      end 
       setup_stubbed_reject_minion!(stubbed: minions[3].minion_id)
 
       expect(page).to have_content("Rejection in progress")
