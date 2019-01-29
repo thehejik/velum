@@ -47,7 +47,7 @@ group :test do
   gem "webmock", require: false
   gem "simplecov", require: false
   gem "capybara", "~> 2.14.3"
-  gem "poltergeist", "~> 1.15.0", require: false
+  gem "selenium-webdriver"
   gem "json-schema"
   gem "timecop"
   gem "codeclimate-test-reporter", "~> 1.0.0", require: nil

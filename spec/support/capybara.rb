@@ -1,26 +1,25 @@
 require "capybara/rails"
 require "capybara/rspec"
-require "capybara/poltergeist"
+require "selenium-webdriver"
 
 WAIT_TIME = 3.minutes
 
-Capybara.register_driver :poltergeist do |app|
-  options = {
-    timeout:           WAIT_TIME,
-    js_errors:         true,
-    phantomjs_options: [
-      "--proxy-type=none"
-    ]
-  }
-  # NOTE: uncomment the line below to get more info on the current run.
-  # options[:debug] = true
-  Capybara::Poltergeist::Driver.new(app, options)
-end
+# register chromedriver headless mode
+Capybara.register_driver(:headless_chrome) do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w[headless disable-gpu window-size=1920,1080, no-sandbox ignore-certificate-errors] }
+  )
 
-Capybara.javascript_driver = :poltergeist
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+  )
+end
+Capybara.default_driver = :headless_chrome
+Capybara.javascript_driver = :headless_chrome
 
 Capybara.configure do |config|
-  config.javascript_driver = :poltergeist
   config.default_max_wait_time = WAIT_TIME
   config.match = :one
   config.exact_options = true
