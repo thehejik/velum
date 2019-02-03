@@ -7,7 +7,8 @@ apt-get update
 apt-get install -y unzip libnss3-tools
 
 # download chromedriver
-CHROME_DRIVER_VERSION="2.4" # latest released on January/2019
+CHROME_DRIVER_VERSION="2.35" #ChromeDriver 2.35 -> Supports Chrome v62-64 ( used from travis)
+
 wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
 unzip chromedriver_linux64.zip
 mv chromedriver /usr/bin/chromedriver
