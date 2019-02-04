@@ -2,7 +2,7 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium-webdriver"
 
-WAIT_TIME = 1.minutes
+WAIT_TIME = 30
 
 # register chromedriver headless mode
 Capybara.register_driver(:headless_chrome) do |app|
