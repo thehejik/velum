@@ -41,7 +41,9 @@ describe "feature: node force removal", js: true do
       expect(page).to have_css(worker_selector, text: "Force remove")
       find(worker_link).click
       click_on "Proceed with forcible removal"
-      expect(page).to have_css(worker_selector, text: "Pending removal")
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Pending removal")
+      end
     end
 
     it "shows warning modal" do
@@ -49,7 +51,9 @@ describe "feature: node force removal", js: true do
       master_link = "#{master_selector} .force-remove-node-link"
 
       find(master_link).click
-      expect(page).to have_content("Forced node removal")
+      page.accept_alert do
+        expect(page).to have_content("Forced node removal")
+      end
     end
 
     it "proceeds with removal even after warning" do
@@ -57,8 +61,9 @@ describe "feature: node force removal", js: true do
       master_link = "#{master_selector} .force-remove-node-link"
 
       find(master_link).click
-      expect(page).to have_content("Proceed with forcible removal")
-
+      page.accept_alert do
+        expect(page).to have_content("Proceed with forcible removal")
+      end
       click_on "Proceed with forcible removal"
       expect(page).to have_css(master_selector, text: "Pending removal")
     end
@@ -70,8 +75,9 @@ describe "feature: node force removal", js: true do
       find(worker_link).click
       click_on "Proceed with forcible removal"
       minions[1].update!(highstate: "pending_removal")
-      expect(page).to have_css(worker_selector, text: "Pending removal")
-
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Pending removal")
+      end
       # remove other nodes
       expect(page).to have_css(".force-remove-node-link.disabled",
         count: 2)
@@ -95,8 +101,9 @@ describe "feature: node force removal", js: true do
       find(worker_link).click
       click_on "Proceed with forcible removal"
       minions[1].update!(highstate: "pending_removal")
-      expect(page).to have_css(worker_selector, text: "Pending removal")
-
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Pending removal")
+      end
       # removing
       expect(page).to have_css(".force-remove-node-link.disabled")
 
@@ -123,8 +130,9 @@ describe "feature: node force removal", js: true do
       find(worker_link).click
       click_on "Proceed with forcible removal"
       minions[1].update!(highstate: "pending_removal")
-      expect(page).to have_css(worker_selector, text: "Pending removal")
-
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Pending removal")
+      end
       # removing
       expect(page).to have_css(".force-remove-node-link.disabled")
 
@@ -148,8 +156,9 @@ describe "feature: node force removal", js: true do
     it "shows alert message that there's already an ongoing orchestration" do
       worker_selector = ".actions-column[data-id='#{minions[3].minion_id}']"
       worker_link = "#{worker_selector} .force-remove-node-link"
-
-      expect(page).to have_css(worker_selector, text: "Force remove")
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Force remove")
+      end
       find(worker_link).click
       click_on "Proceed with forcible removal"
       expect(page).to have_content("Orchestration currently ongoing. Please wait for it to finish.")
@@ -161,8 +170,9 @@ describe "feature: node force removal", js: true do
       allow(Orchestration).to receive(:run).and_return(true)
       worker_selector = ".actions-column[data-id='#{minions[3].minion_id}']"
       worker_link = "#{worker_selector} .force-remove-node-link"
-
-      expect(page).to have_css(worker_selector, text: "Force remove")
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Force remove")
+      end
       find(worker_link).click
       click_on "Proceed with forcible removal"
       minions[1].update!(highstate: "removal_failed")
@@ -175,8 +185,9 @@ describe "feature: node force removal", js: true do
         .and_raise(ActiveRecord::RecordNotFound)
       worker_selector = ".actions-column[data-id='#{minions[3].minion_id}']"
       worker_link = "#{worker_selector} .force-remove-node-link"
-
-      expect(page).to have_css(worker_selector, text: "Force remove")
+      page.accept_alert do
+        expect(page).to have_css(worker_selector, text: "Force remove")
+      end
       find(worker_link).click
       click_on "Proceed with forcible removal"
       expect(page).to have_content("An attempt to remove node #{minions[3].minion_id} has failed")

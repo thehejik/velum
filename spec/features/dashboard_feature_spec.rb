@@ -137,7 +137,9 @@ describe "Dashboard" do
       end
       setup_stubbed_reject_minion!(stubbed: minions[3].minion_id)
 
-      expect(page).to have_content("Rejection in progress")
+      page.accept_alert do
+        expect(page).to have_content("Rejection in progress")
+      end
     end
 
     it "A user doesn't see (new) link if there's a pending highstate node", js: true do
