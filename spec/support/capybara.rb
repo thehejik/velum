@@ -13,11 +13,11 @@ Capybara.register_driver :poltergeist do |app|
     ]
   }
   # NOTE: uncomment the line below to get more info on the current run.
-  # options[:debug] = true
+  #options[:debug] = true
   Capybara::Poltergeist::Driver.new(app, options)
 end
 
-Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
 
 Capybara.configure do |config|
   config.javascript_driver = :poltergeist

@@ -52,6 +52,7 @@ describe "Dashboard" do
 
     it "A user see the update link if update is available", js: true do
       expect(page).not_to have_content("update all nodes")
+      page.save_screenshot('screen.png')
 
       # minion[1].highstate == :applied
       minions[1].update(tx_update_reboot_needed: true, tx_update_failed: false)
