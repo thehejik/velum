@@ -134,7 +134,10 @@ describe "Dashboard" do
         click_on "Reject"
       end
 
-      page.driver.browser.switch_to.alert.accept
+  #   page.evaluate_script('window.confirm = function() { return true; }')  
+  #  expect(page.driver.alert_messages.last).to eq 'Are you sure you want to reject'
+       page.save_screenshot("alert.png")
+       page.driver.browser.switch_to.alert.accept
   #    page.dismiss_confirm do
   #      click_link 'Cancel'
   #    end

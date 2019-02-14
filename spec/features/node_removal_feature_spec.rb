@@ -58,6 +58,7 @@ describe "feature: node removal", js: true do
     worker_link = "#{worker_selector} .remove-node-link"
 
     find(worker_link).click
+    page.driver.browser.switch_to.alert.accept
     expect(page).to have_css(worker_selector, text: "Pending removal")
     expect(page).not_to have_content("Invalid cluster topology")
   end
@@ -69,6 +70,7 @@ describe "feature: node removal", js: true do
 
       expect(page).to have_css(worker_selector, text: "Remove")
       find(worker_link).click
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_css(worker_selector, text: "Pending removal")
     end
 
@@ -77,6 +79,7 @@ describe "feature: node removal", js: true do
       master_link = "#{master_selector} .remove-node-link"
 
       find(master_link).click
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("Unsupported cluster topology")
     end
 
@@ -85,6 +88,7 @@ describe "feature: node removal", js: true do
       master_link = "#{master_selector} .remove-node-link"
 
       find(master_link).click
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("Proceed anyway")
 
       click_on "Proceed anyway"
@@ -97,6 +101,7 @@ describe "feature: node removal", js: true do
 
       find(worker_link).click
       minions[1].update!(highstate: "pending_removal")
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_css(worker_selector, text: "Pending removal")
 
       # remove other nodes
@@ -118,6 +123,7 @@ describe "feature: node removal", js: true do
 
       find(worker_link).click
       minions[1].update!(highstate: "pending_removal")
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_css(worker_selector, text: "Pending removal")
 
       # removing
@@ -145,6 +151,7 @@ describe "feature: node removal", js: true do
 
       find(worker_link).click
       minions[1].update!(highstate: "pending_removal")
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_css(worker_selector, text: "Pending removal")
 
       # removing
@@ -173,6 +180,7 @@ describe "feature: node removal", js: true do
 
       expect(page).to have_css(worker_selector, text: "Remove")
       find(worker_link).click
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("Orchestration currently ongoing. Please wait for it to finish.")
     end
   end
@@ -186,6 +194,7 @@ describe "feature: node removal", js: true do
       expect(page).to have_css(worker_selector, text: "Remove")
       find(worker_link).click
       minions[1].update!(highstate: "removal_failed")
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("Removal Failed")
       expect(page).to have_link("Force remove")
     end
@@ -196,9 +205,9 @@ describe "feature: node removal", js: true do
         .and_raise(ActiveRecord::RecordNotFound)
       worker_selector = ".actions-column[data-id='#{minions[3].minion_id}']"
       worker_link = "#{worker_selector} .remove-node-link"
-
       expect(page).to have_css(worker_selector, text: "Remove")
       find(worker_link).click
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("An attempt to remove node #{minions[3].minion_id} has failed")
     end
   end
