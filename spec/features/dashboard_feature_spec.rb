@@ -57,6 +57,7 @@ describe "Dashboard" do
       minions[1].update(tx_update_reboot_needed: true, tx_update_failed: false)
 
       expect(page).to have_content("update all nodes")
+      page.save_screenshot("after.png")
     end
 
     it "A user see the update link if update is available (retryable)", js: true do
@@ -132,9 +133,14 @@ describe "Dashboard" do
       within ".minion_#{minions[3].minion_id}" do
         click_on "Reject"
       end
-      page.accept_alert do
-        expect(page).to have_content("Rejection in progress")
-      end
+
+  #   page.evaluate_script('window.confirm = function() { return true; }')  
+  #  expect(page.driver.alert_messages.last).to eq 'Are you sure you want to reject'
+       page.save_screenshot("alert.png")
+       page.driver.browser.switch_to.alert.accept
+  #    page.dismiss_confirm do
+  #      click_link 'Cancel'
+  #    end
       setup_stubbed_reject_minion!(stubbed: minions[3].minion_id)
 
       page.accept_alert do

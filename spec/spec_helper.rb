@@ -29,10 +29,12 @@ VCR.configure do |c|
   c.ignore_hosts "1.2.3.256"
 
   # To debug when a VCR goes wrong.
-  # c.debug_logger = $stdout
+  c.debug_logger = File.open('vcr.log', 'w')
+  #c.debug_logger = $stdout
 end
 
 RSpec.configure do |config|
+  config.example_status_persistence_file_path = '/home/travis/builds/velum/persistence.dump'
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
