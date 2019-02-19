@@ -11,7 +11,7 @@ VCR.configure do |c|
   c.cassette_library_dir = "spec/vcr_cassettes"
   c.hook_into :webmock
   c.ignore_localhost = false
-
+  c.allow_http_connections_when_no_cassette = true
   # So code coverage reports can be submitted to codeclimate.com
   c.ignore_hosts "codeclimate.com"
   # This is a test request used by Capybara to check if the server has finished
