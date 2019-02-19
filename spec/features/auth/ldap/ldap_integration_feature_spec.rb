@@ -255,9 +255,7 @@ describe "LDAP Integration feature", js: true do
   it "LDAP Failure causes 500" do
     setup_ldap_for_failure
 
-page.save_screenshot("500.png")
     expect(page).to have_content("expected")  
-    #expect(page.status_code).to eq(500)
   end
 
   def create_account
