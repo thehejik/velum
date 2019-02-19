@@ -140,6 +140,7 @@ describe "Bootstrap cluster feature" do
         click_on "Remove"
       end
 
+      page.driver.browser.switch_to.alert.accept
       expect(page).to have_content("Pending removal")
 
       setup_stubbed_remove_minion!(stubbed: minions[0].minion_id)
